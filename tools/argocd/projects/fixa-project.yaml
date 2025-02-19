@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: fixa               # نام پروژه
+  namespace: argocd        # Namespace که ArgoCD در آن نصب شده است
+spec:
+  description: "Project for managing Fixa applications"
+  sourceRepos:             # لیست آدرس مخازن Git که این پروژه می‌تواند از آنها استفاده کند
+    - https://github.com/htb8419/fixa-gitops.git
+  destinations:            # مقصدهایی که این پروژه مجاز است به آنها برنامه‌ها را مستقر کند
+    - namespace: fixa       # Namespace مقصد
+      server: https://kubernetes.default.svc # آدرس سرور (برای کلاستر فعلی)
+  clusterResourceWhitelist: # منابعی که در سطح کلاستر مجاز هستند
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist: # منابعی که در سطح Namespace مجاز هستند
+    - group: '*'
+      kind: '*'

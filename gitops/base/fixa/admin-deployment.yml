@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-deployment
+  namespace: fixa
+  labels:
+    app: fixa-admin
+spec:
+  replicas: 30
+  selector:
+    matchLabels:
+      app: fixa-admin
+  template:
+    metadata:
+      labels:
+        app: fixa-admin
+    spec:
+      containers:
+        - name: fixa-admin
+          image: 127.0.0.1:32500/fixa-admin:latest
+          env:
+            - name: "spring_profiles_active"
+              value: "PROD"
+            - name: "fixa_customer_base-url"
+              value: "http://app.fixa"
+          ports:
+            - containerPort: 8090
+          volumeMounts:
+            - name: fixa-key-secret
+              mountPath: /fixa/key/
+      volumes:
+        - name: fixa-key-secret
+          secret:
+            secretName: fixa-key-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-service
+  namespace: fixa
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 32001
+  selector:
+    app: fixa-admin

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-configmap
+data:
+    KEYCLOAK_MODE: "DEV"
+    TZ: "Asia/Tehran"
+    KEYCLOAK_ADMIN: "admin"
+    KEYCLOAK_ADMIN_PASSWORD: "1234"
+    KC_HEALTH_ENABLED: "true"
+    KC_LOG_LEVEL: "error,io.qua:error,org.keycloak:debug,org.apache.http:info,com.entekhabgroup.keycloak:debug"
+    KC_LOG_CONSOLE_COLOR: "true"
+    KC_DB: "postgres"
+    KC_DB_USERNAME: "fixa-user"
+    KC_DB_PASSWORD: "NFHRI7XKmuAOokIAeVGBqECPqDVZp0ZLKV6eJ0SNZbA="
+    KC_DB_URL: "jdbc:postgresql://10.0.25.137:5432/fixa_dev"
+    #KC_PROXY: "edge"
+    KC_PROXY_HEADERS: "xforwarded"
+    KC_HOSTNAME: "127.0.0.1"

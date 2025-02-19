@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-deployment
+  namespace: fixa
+  labels:
+    app.kubernetes.io/name: fixa-admin
+    app.kubernetes.io/component: admin
+    app.kubernetes.io/version: "0.0.1"
+spec:
+  replicas: 30
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fixa-admin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fixa-admin
+    spec:
+      containers:
+        - name: fixa-admin
+          image: fixa-admin:latest
+          env:
+            - name: "spring_profiles_active"
+              value: "PROD"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: fixa-key-secret
+              mountPath: /fixa/key/
+      volumes:
+        - name: fixa-key-secret
+          secret:
+            secretName: fixa-key-secret

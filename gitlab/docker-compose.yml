@@ -1,0 +1,14 @@
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    container_name: gitlab
+    restart: always
+    hostname: '0.0.0.0'  # Bind to all interfaces
+    ports:
+      - '9080:80'
+      - '9443:443'
+      - '9022:22'
+    volumes:
+      - './config:/etc/gitlab'
+      - './logs:/var/log/gitlab'
+      - './data:/var/opt/gitlab'

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fixa-admin-proj
+  namespace: argocd
+spec:
+  project: fixa
+  source:
+    repoURL: https://github.com/htb8419/fixa-gitops.git
+    path: overlays/dev
+    targetRevision: HEAD
+    directory:
+      recurse: true
+    jsonnet: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fixa
+syncPolicy:
+  automated:
+    prune: true

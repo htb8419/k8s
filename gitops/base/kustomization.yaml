@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: fixa
+resources:
+  - namespace.yml
+  - keycloak/keycloak-configmap.yml
+  - keycloak/keycloak.yml
+  - tools/docker-registry.yml
+  - nginx/nginx-config.yml
+  - nginx/nginx-html.yml
+  - nginx/deployment.yml
+  - fixa/fixa-key-secret.yml
+  - fixa/admin-deployment.yml
+
+generatorOptions:
+  disableNameSuffixHash: true # use a static name
